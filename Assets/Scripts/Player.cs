@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && touchGround == true) 
-        { 
+        if (Input.GetKeyDown(KeyCode.Space) && touchGround == true)
+        {
             jump = true;
         }
 
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(jump) 
+        if (jump)
         {
             rigidBodyComponent.AddForce(6 * Vector3.up, ForceMode.VelocityChange);
             jump = false;
