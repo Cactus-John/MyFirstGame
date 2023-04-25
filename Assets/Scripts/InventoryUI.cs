@@ -13,9 +13,9 @@ public class InventoryUI : MonoBehaviour
     public void UpdateCoinText(PlayerInventory playerInventory)
     {
         CoinText.text = playerInventory.NumberOfCoins.ToString();
-        if (CoinText.text == "4")
+        if (CoinText.text == "9")
         {
-            Debug.Log("Game over");
+            Application.LoadLevel(1);
         }
     }
 }
