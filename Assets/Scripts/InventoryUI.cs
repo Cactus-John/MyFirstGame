@@ -1,9 +1,10 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class InventoryUI : MonoBehaviour
 {
-    private TextMeshProUGUI CoinText;
+    public TextMeshProUGUI CoinText;
 
     void Start()
     {
@@ -13,9 +14,19 @@ public class InventoryUI : MonoBehaviour
     public void UpdateCoinText(PlayerInventory playerInventory)
     {
         CoinText.text = playerInventory.NumberOfCoins.ToString();
-        if (CoinText.text == "9")
+        if (SceneManager.GetActiveScene().name == "Level 1")
         {
-            Application.LoadLevel(1);
+            if (CoinText.text == "9")
+            {
+                SceneManager.LoadScene(1);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            if (CoinText.text == "9")
+            {
+                SceneManager.LoadScene(2);
+            }
         }
     }
 }

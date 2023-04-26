@@ -1,27 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Sprites;
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody rigidBodyComponent;
-    bool jump;
+    bool canJump;
     bool touchGround;
+
+    private Rigidbody rigidBodyComponent;
     private float horizontal;
 
-    // Start is called before the first frame update
+    public float speed = 500f;
+
     void Start()
     {
         rigidBodyComponent = GetComponent<Rigidbody>();
-        jump = false;
+        canJump = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && touchGround == true)
         {
-            jump = true;
+            canJump = true;
+        }
+
+        if (Input.GetKey(KeyCode.W) && canJump == true)
+        {
+            rigidBodyComponent.AddForce(transform.up * 24f);
+        }
+
+        if (Input.GetKey(KeyCode.S) && canJump == false)
+        {
+            rigidBodyComponent.AddForce(-transform.up * 0.675f);
+        }
+
+        if (Input.GetKey(KeyCode.D) && canJump == false)
+        {
+            rigidBodyComponent.AddForce(transform.forward * speed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.A) && canJump == false)
+        {
+            rigidBodyComponent.AddForce(transform.forward * speed * Time.deltaTime); ;
         }
 
         horizontal = Input.GetAxis("Horizontal");
@@ -29,10 +51,10 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (jump)
+        if (canJump)
         {
             rigidBodyComponent.AddForce(6 * Vector3.up, ForceMode.VelocityChange);
-            jump = false;
+            canJump = false;
             touchGround = false;
         }
 
